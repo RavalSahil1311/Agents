@@ -161,3 +161,7 @@ cython_debug/
 
 /others
 /temp
+Chatbot.db
+Chatbot.db-shm
+Chatbot.db-wal
+.gitignore
