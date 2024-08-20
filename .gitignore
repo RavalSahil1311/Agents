@@ -164,4 +164,6 @@ cython_debug/
 Chatbot.db
 Chatbot.db-shm
 Chatbot.db-wal
-.gitignore
+credentials.json
+calendar_testing.py
+token.json
