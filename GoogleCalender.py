@@ -143,7 +143,7 @@ class ListGoogleCalendarEvents(GoogleCalendarBaseTool):
         start_datetime: str,
         end_datetime: str,
         max_results: int = 10,  # max results per calendar
-        timezone: str = "America/Chicago",
+        timezone: str = "Asia/Kolkata",
         run_manager: Optional[CallbackManagerForToolRun] = None,
     ) -> List(Dict[str, Any]):
 
@@ -243,7 +243,7 @@ class CreateGoogleCalendarEvent(GoogleCalendarBaseTool):
         location: str = "",
         description: str = "",
         guests: list[str] = None,
-        timezone: str = "America/Chicago",
+        timezone: str = "Asia/Kolkata",
         run_manager: Optional[CallbackManagerForToolRun] = None,
     ) -> str:
 
