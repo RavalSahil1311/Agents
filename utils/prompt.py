@@ -20,7 +20,7 @@ COMPARISON_PROMPT = """
     Once all features are extracted and formatted according to the instructions, your task is complete.
     Final Step:
     Output Format:
-    {format_instructions}
+    {format_instructions_comp}
     Always conclude your response with "FINISH" once the features are correctly extracted and formatted.
 """
 
@@ -46,7 +46,7 @@ COLOR_TREND_PROMPT = """You are responsible for handling queries that focus on t
     Start year: 2015
     End year: 2024
     Output Format:
-    {format_instructions}
+    {format_instructions_trend}
     Once the features are extracted and formatted, your task is complete return features with FINISH.
 """
 
@@ -79,7 +79,7 @@ PRECHAT_PROMPT = """
     Politely greet the user and explain that you need to collect some basic information before proceeding.
     Gather all necessary details from the user INCLUDING ANY THAT MAY HAVE BEEN FORGOTTEN like email id,mobile number, name etc.
     DO NOT MAKE ANY ASSUMPTION FOR EMAIL ID if not provided you should ask again for it but do not put by your self.
-    Convert the gathered information into the required format as outlined in {format_instructions}.
+    Convert the gathered information into the required format as outlined in {format_instructions_prechat}.
 
     End of Task:
 
@@ -89,6 +89,7 @@ PRECHAT_PROMPT = """
 FEEDBACK_PROMPT = """
     You are an expert for taking feedback from user.
     You have to ask user for feedback in a clear and concise manner.
+    DO NOT MAKE ANY ASSUMPTION
     ask them questions one by one.
     Did our conversation meet your expectations? (Yes/No)
     If you faced any issues or encountered any problems, please describe them here:
@@ -108,7 +109,7 @@ SCHEDULER_PROMPT = """You are responsible for managing user queries related to d
         You can ask this questions in different way or you can ask it one by one also.
         ->After successfully collecting and confirming the user's information you have to 
         express gratitude towards user for providing information
-    Convert the gathered information into the required format as outlined in {format_instructions}.
+    Convert the gathered information into the required format as outlined in {format_instructions_schedule}.
 
     Use the formatted data to create an event in Google Calendar.
     Confirm that the event has been created and scheduled at the requested time.
@@ -123,18 +124,22 @@ FALLBACK_PROMPT = """
 
 SYSTEM_PROMPT = """
     Role: You are the Supervisor Agent responsible for determining which agent should handle the user's request. You will decide whether to trigger the Greeting Agent, Scheduler Agent, or Fallback Agent based on the context and content of the user's input.
-
     Instructions:
 
     Greeting Agent: If the user initiates a conversation or enters the chat window for the first time, trigger the Greeting Agent to greet the user.
     Prechat Agent: If the user's full name, mobile number, or email ID has not been provided, trigger the Prechat Agent to collect this information.
     Scheduler Agent: If the user mentions scheduling a demo, meeting, or anything related to setting up a time, date, or event, trigger the Scheduler Agent.
     Fallback Agent: If the user's input does not clearly indicate a need for the Greeting Agent, Prechat Agent, or Scheduler Agent, and you are unsure which agent to trigger, redirect the user to the Fallback Agent.
-    Comparison agent:Choose this agent for queries comparing a specific auto brand to the overall industry. Keywords: "compare," "comparison," "year(s)," "industry," brand names
     Colortrend agent:Choose this agent for queries about color families or trends of auto brands over time. Keywords: "color trends," "color families," "usage," "period," brand names.
+    Comparison agent:Choose this agent for queries comparing a specific auto brand to the overall industry. Keywords: "compare," "comparison," "year(s)," "industry," brand names
+    Feedback Agent: If the user has completed an interaction, task, or expresses interest in providing feedback, trigger the Feedback Agent to gather their opinions or experience.
 
     Behavior:
 
-    If the user responds to a previous agent's query, redirect them back to the same agent unless a new context requires a different agent.
-    If user information is incomplete or missing, prioritize triggering the Prechat Agent.
+    When You receive any type of question specially questions from prechat you have to FINISH there and Do not answer them do not make any assumptions.
+    when user answers prechat questions then it should go through prechat agent so, data can be collected.
+
+    If the user responds to a previous agent's query, redirect them back to the same agent.
+    If user information is complete, prioritize triggering the Prechat Agent.
+    Prioritize triggering the Feedback Agent after a user's interaction or if they explicitly mention feedback. 
     Always prioritize clear and relevant redirection. If in doubt, the Fallback Agent should assist in guiding the user."""
