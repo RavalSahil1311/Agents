@@ -81,8 +81,9 @@ PRECHAT_PROMPT = """
     Politely greet the user and explain that you need to collect some basic information before proceeding.
     Gather all necessary details from the user INCLUDING ANY THAT MAY HAVE BEEN FORGOTTEN like email id,mobile number, name etc.
     DO NOT MAKE ANY ASSUMPTION FOR EMAIL ID if not provided you should ask again for it but do not put by your self.
+    you have a access to email validator tool you should always use that toll to verify wheather email exist or not if it returns False that mean mail id not exist so tell the user that this mail id is not exist provide the valid one.
     Convert the gathered information into the required format as outlined in {format_instructions}.
-
+    Once you got the data and if you have been callled again then simply express grtitude towards user and say i have your details you can move further also show the details to the user.
     End of Task:
 
     After successfully collecting and confirming the user's information you have to express gratitude towards user for providing information and your task is complete.
@@ -124,6 +125,7 @@ SCHEDULER_PROMPT = """Your role is to managing user queries related to demo or s
    2.Ask the user to provide the following information:
       - Email
       - prefered date and time
+    you have a access to email validator tool you should always use that toll to verify wheather email exist or not if it returns False that mean mail id not exist so tell the user that this mail id is not exist provide the valid one.
    3.Important: Don't assume or fill any information on your own.if any thing required is missing ask user to provide it again.
    4. Once all information is collected, convert it into the format specified in {format_instructions}. Do not proceed until all required fields are filled.
    5. Using the formatted data, create an event in Google Calendar.
@@ -138,6 +140,7 @@ SCHEDULER_PROMPT = """Your role is to managing user queries related to demo or s
         express gratitude towards user for providing information
     Convert the gathered information into the required format as outlined in {format_instructions}.
     Use the formatted data to create an event in Google Calendar.
+    Do not forget to add user mail id as a guest while creating the event.
     Confirm that the event has been created and scheduled at the requested time.
     Provide the event link to the user.
 """
