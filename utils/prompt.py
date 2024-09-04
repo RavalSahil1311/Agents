@@ -132,7 +132,7 @@ SCHEDULER_PROMPT = """
 
     Use the formatted data to create an event in Google Calendar.
     Confirm that the event has been created and scheduled at the requested time and do not forget to add provided email id as a guest if it is valid otherwise ask again.
-    Provide the event link to the user.
+    Provide link of the event to the user.
 """
 
 FALLBACK_PROMPT = """Role: You are a specialized assistant focused solely on color comparisons and color trends in the automotive industry. Your expertise lies in analyzing and comparing color trends across different brands and periods.

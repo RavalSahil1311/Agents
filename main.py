@@ -1,5 +1,5 @@
 from utils.workflow_manager import graph
-from langchain_core.messages import BaseMessage, HumanMessage
+from langchain_core.messages import HumanMessage
 
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
@@ -40,38 +40,3 @@ async def interact(user_input: UserInput):
 @app.get("/")
 def read_root():
     return {"message": "Welcome to the LangChain API!"}
-
-
-
-
-# config = {"configurable": {"thread_id": "1"}}
-
-# while True:
-#     user_input = input("User: ")
-#     if user_input.lower() in ["quit", "exit", "q"]:
-#         print("Goodbye!")
-#         break
-#     for s in graph.stream(
-#         {"messages": [HumanMessage(content=user_input)]},
-#         config,
-#     ):
-#         # print("Raw Response: ", s)  # Print the raw response for debugging
-        
-#         # Check if 'supervisor' is in the response
-#         if 'supervisor' in s:
-#             # print("Supervisor detected, skipping...")
-#             continue
-        
-#         # Try to access content and print it
-#         for key, value in s.items():
-#             if isinstance(value, dict) and 'messages' in value:
-#                 # print(f"value: {value}")
-#                 for message in value['messages']:
-#                     found_content = False
-
-#                     # print("Input: ", user_input)
-#                     print(f"msg: {message.content}")
-#                     # if 'content' in message:
-#                     #     print("AI: ", message)
-        
-#         print("----")

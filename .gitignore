@@ -167,3 +167,4 @@ Chatbot.db-wal
 credentials.json
 calendar_testing.py
 token.json
+othersapp.py
