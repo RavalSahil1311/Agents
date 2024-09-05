@@ -21,6 +21,17 @@ if "event_date_hidden" not in st.session_state:
 if "temp_selected_datetime" not in st.session_state:
     st.session_state.temp_selected_datetime = ""  # Temporarily store the selected date and time
 
+if "time_zone" not in st.session_state:
+    st.session_state.time_zone = ""
+
+if "time_zone_disabled" not in st.session_state:
+    st.session_state.time_zone_disabled = True
+
+if "time_zone_hidden" not in st.session_state:
+    st.session_state.time_zone_hidden = True
+
+
+
 st.title("Auto Assist AI Chatbot")
 
 # Create a placeholder for the chat history above the input
@@ -47,21 +58,29 @@ if not st.session_state.event_date_hidden:
     # Check if a date range is selected
     if selected_event and "select" in selected_event:
         # Force start and end dates to be the same
-        selected_date = selected_event["select"]["start"].split("T")[0]
+        selected_date = selected_event["select"]["end"].split("T")[0]
         st.session_state.temp_selected_datetime = selected_date
 
     # Time selection inputs
     start_time = st.time_input("Start Time", key="start_time")
     end_time = st.time_input("End Time", key="end_time")
+    time_zone = st.selectbox(
+        "Please select your time zone",
+        ("Default", "Asia/Kolkata", "America/Nework", "Australia/Sydney"),
+        key="time_zone",
+        index=1,
+        placeholder="Select time zone...",
+    )
 
     if st.button("Select Event Details"):
         if st.session_state.temp_selected_datetime and start_time and end_time:
             # Combine the selected date with the start and end times
-            st.session_state.selected_datetime = f"Date: {st.session_state.temp_selected_datetime}, Start Time: {start_time}, End Time: {end_time}"
-            st.session_state.user_input = f"Event Date and Time: {st.session_state.selected_datetime}"
+            st.session_state.selected_datetime = f" At {start_time} to {end_time} On {st.session_state.temp_selected_datetime} and timezone is {st.session_state.time_zone}"
+            st.session_state.user_input = f"{st.session_state.selected_datetime}"
             # Hide event date input and button after selection
             st.session_state.event_date_hidden = True
             st.session_state.event_date_disabled = True
+            st.session_state.time_zone_disabled = True
             st.rerun()  # Rerun to update chat history and input text
 
 # Send button
@@ -97,13 +116,17 @@ if st.button("Send"):
                         st.write("Assistant response message:", message)
                         
                         # Check if the assistant's response includes the phrase
-                        if "start date" in message.lower():
+                        if "date/time" in message.lower():
                             st.session_state.event_date_disabled = False  # Enable the event date input
                             st.session_state.event_date_hidden = False  # Make event date input visible
+                            st.session_state.time_zone_disabled = False  # Enable the time zone input
+                            st.session_state.time_zone_hidden = False  # Make time zone input visible
                         else:
                             # Hide and disable the event date input if not needed
                             st.session_state.event_date_hidden = True
                             st.session_state.event_date_disabled = True
+                            st.session_state.time_zone_disabled = True # Enable the time zone input
+                            st.session_state.time_zone_hidden = True
                         
                     st.rerun()  # Rerun the script to update the UI
                 else:
@@ -116,4 +139,6 @@ if st.button("Send"):
     # Make event date input and button invisible and disabled after send
     st.session_state.event_date_hidden = True
     st.session_state.event_date_disabled = True
+    st.session_state.time_zone_disabled = True
+    st.session_state.time_zone_hidden = True
     st.rerun()  # Rerun the script to update the UI
