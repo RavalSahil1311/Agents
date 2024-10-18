@@ -30,7 +30,7 @@ from utils.prompt import (
 
 
 credentials = get_gmail_credentials(
-    token_file="../token.json",
+    token_file="token.json",
     scopes=["https://www.googleapis.com/auth/calendar"],
     client_secrets_file="credentials.json",
 )
