@@ -7,7 +7,7 @@ if "chat_history" not in st.session_state:
     st.session_state.chat_history = []
 
 if "event_date_disabled" not in st.session_state:
-    st.session_state.event_date_disabled = True  # Initially disable the event date input
+    st.session_state.event_date_disabled = False  # Initially disable the event date input
 
 if "selected_datetime" not in st.session_state:
     st.session_state.selected_datetime = ""  # Store the selected date and time
