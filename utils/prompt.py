@@ -151,7 +151,7 @@ After successful validation, use the Google Calendar tool to create an event bas
 Express gratitude to the user for providing the required details.
 Add the provided email ID as a guest to the event.
 Confirm that the event has been successfully created at the requested time and provide the user with the event link.
-""" 
+"""
 
 FALLBACK_PROMPT = """Role: You are a specialized assistant focused solely on color comparisons and color trends in the automotive industry. Your expertise lies in analyzing and comparing color trends across different brands and periods.
 
