@@ -4,7 +4,9 @@ from langchain_core.messages import HumanMessage
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from typing import List
-
+from dotenv import load_dotenv
+load_dotenv()
+import os 
 app = FastAPI()
 
 class UserInput(BaseModel):
